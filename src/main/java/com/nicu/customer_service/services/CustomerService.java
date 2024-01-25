@@ -14,7 +14,7 @@ public interface CustomerService {
 
     Customer findCustomerByFirstNameOrLastName(String firstName, String lastName);
 
-    void createCustomer(Customer customer);
+    String createCustomer(Customer customer);
 
     Iterable<Customer> findAllTemplate();
 }

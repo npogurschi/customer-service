@@ -37,8 +37,8 @@ public class CustomerController {
     }
 
     @PostMapping("/createCustomer")
-    public void createCustomer(@RequestBody Customer customer) {
-        customerService.createCustomer(customer);
+    public String createCustomer(@RequestBody Customer customer) {
+        return customerService.createCustomer(customer);
     }
 
 }

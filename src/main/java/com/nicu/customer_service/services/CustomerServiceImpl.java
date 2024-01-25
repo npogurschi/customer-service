@@ -53,13 +53,18 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public void createCustomer(Customer customer) {
-        Address homeAddress = customer.getAddress();
-        if (homeAddress != null) {
-            addressRepository.save(homeAddress);
+    public String createCustomer(Customer customer) {
+        Address address = customer.getAddress();
+        if (customer.getAge() < 18) {
+            return "The customer's age < 18, cannot create !";
         }
 
-        customerRepository.save(customer);
+        if (address != null) {
+            addressRepository.save(address);
+            customerRepository.save(customer);
+
+        }
+        return "Customer " + customer.getLastName() + " successfully created ~";
     }
 }
 
