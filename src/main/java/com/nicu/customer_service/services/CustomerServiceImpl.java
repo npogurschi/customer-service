@@ -1,8 +1,11 @@
 package com.nicu.customer_service.services;
 
+import com.nicu.customer_service.domain.Address;
 import com.nicu.customer_service.domain.Customer;
+import com.nicu.customer_service.repositories.AddressRepository;
 import com.nicu.customer_service.repositories.CustomerRepository;
 import org.springframework.stereotype.Service;
+import org.thymeleaf.util.StringUtils;
 
 import java.util.List;
 import java.util.Optional;
@@ -11,9 +14,11 @@ import java.util.Optional;
 public class CustomerServiceImpl implements CustomerService {
 
     private final CustomerRepository customerRepository;
+    private final AddressRepository addressRepository;
 
-    public CustomerServiceImpl(CustomerRepository customerRepository) {
+    public CustomerServiceImpl(CustomerRepository customerRepository, AddressRepository addressRepository) {
         this.customerRepository = customerRepository;
+        this.addressRepository = addressRepository;
     }
 
     @Override
@@ -36,5 +41,25 @@ public class CustomerServiceImpl implements CustomerService {
         return customerRepository.findAll();
     }
 
+
+    @Override
+    public Customer findCustomerByFirstNameOrLastName(String firstName, String lastName) {
+        if ((firstName != null && !StringUtils.isEmpty(firstName) )||
+                (lastName != null && !StringUtils.isEmpty(lastName))) {
+            return customerRepository.findCustomerByFirstNameOrLastName(firstName, lastName);
+
+        }
+        return new Customer();
+    }
+
+    @Override
+    public void createCustomer(Customer customer) {
+        Address homeAddress = customer.getAddress();
+        if (homeAddress != null) {
+            addressRepository.save(homeAddress);
+        }
+
+        customerRepository.save(customer);
+    }
 }
 

@@ -3,6 +3,7 @@ com/nicu/customer_service/bootstrap/BootstrapData.class
 com/nicu/customer_service/domain/Customer.class
 com/nicu/customer_service/services/CustomerServiceImpl.class
 com/nicu/customer_service/repositories/CustomerRepository.class
+com/nicu/customer_service/controllers/CustomerTemplateController.class
 com/nicu/customer_service/domain/Address.class
 com/nicu/customer_service/services/CustomerService.class
 com/nicu/customer_service/CustomerServiceApplication.class

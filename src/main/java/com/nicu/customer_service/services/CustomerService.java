@@ -12,5 +12,9 @@ public interface CustomerService {
 
     Customer findCustomer(Long id);
 
+    Customer findCustomerByFirstNameOrLastName(String firstName, String lastName);
+
+    void createCustomer(Customer customer);
+
     Iterable<Customer> findAllTemplate();
 }

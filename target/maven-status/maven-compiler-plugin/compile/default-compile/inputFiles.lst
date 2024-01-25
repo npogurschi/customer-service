@@ -3,6 +3,7 @@
 /Users/2315346/Documents/Projects/customer-service/src/main/java/com/nicu/customer_service/domain/Customer.java
 /Users/2315346/Documents/Projects/customer-service/src/main/java/com/nicu/customer_service/services/CustomerService.java
 /Users/2315346/Documents/Projects/customer-service/src/main/java/com/nicu/customer_service/bootstrap/BootstrapData.java
+/Users/2315346/Documents/Projects/customer-service/src/main/java/com/nicu/customer_service/controllers/CustomerTemplateController.java
 /Users/2315346/Documents/Projects/customer-service/src/main/java/com/nicu/customer_service/services/CustomerServiceImpl.java
 /Users/2315346/Documents/Projects/customer-service/src/main/java/com/nicu/customer_service/repositories/CustomerRepository.java
 /Users/2315346/Documents/Projects/customer-service/src/main/java/com/nicu/customer_service/repositories/AddressRepository.java
