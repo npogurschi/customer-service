@@ -56,7 +56,7 @@ public class CustomerServiceImpl implements CustomerService {
     public String createCustomer(Customer customer) {
         Address address = customer.getAddress();
         if (customer.getAge() < 18) {
-            return "The customer's age < 18, cannot create !";
+            return "The customer's age < 18, cannot create it !";
         }
 
         if (address != null) {
