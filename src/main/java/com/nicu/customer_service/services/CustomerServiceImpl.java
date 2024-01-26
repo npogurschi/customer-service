@@ -52,19 +52,35 @@ public class CustomerServiceImpl implements CustomerService {
         return new Customer();
     }
 
+    //age >= 18 AND  email or address must be completed
     @Override
     public String createCustomer(Customer customer) {
         Address address = customer.getAddress();
         if (customer.getAge() < 18) {
-            return "The customer's age < 18, cannot create it !";
+            return "The customer's age < 18 !";
         }
 
-        if (address != null) {
+        if (address != null &&
+                (customer.getEmail() != null || address.hasAllFieldsCompleted())) {
             addressRepository.save(address);
             customerRepository.save(customer);
-
+        } else {
+            return "Email or address are required !";
         }
-        return "Customer " + customer.getLastName() + " successfully created ~";
+        
+        return "Customer " + customer.getLastName() + " successfully created !";
+    }
+
+    public String updateCustomer(Customer customer) {
+        Long customerId = customer.getId();
+        Optional<Customer> existingCustomer = customerRepository.findById(customerId);
+
+        if (existingCustomer.isEmpty()) {
+            return "Customer not found !";
+        }
+        addressRepository.save(customer.getAddress());
+
+        return "Customer " + existingCustomer.get().getLastName() + " updated";
     }
 }
 

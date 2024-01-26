@@ -16,5 +16,7 @@ public interface CustomerService {
 
     String createCustomer(Customer customer);
 
+    String updateCustomer(Customer customer);
+
     Iterable<Customer> findAllTemplate();
 }

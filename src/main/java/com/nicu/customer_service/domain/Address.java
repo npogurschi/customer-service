@@ -30,6 +30,14 @@ public class Address {
                 '}';
     }
 
+    //if all the fields are completed
+    public boolean hasAllFieldsCompleted() {
+        if (getCity() == null && getStreet() == null && getPostalCode() == null || getCountry() == null) {
+            return false;
+        }
+        return true;
+    }
+
     public Long getId() {
         return id;
     }

@@ -41,4 +41,9 @@ public class CustomerController {
         return customerService.createCustomer(customer);
     }
 
+    @PatchMapping("/updateCustomer")
+    public String updateCustomer(@RequestBody Customer customer) {
+        return customerService.updateCustomer(customer);
+    }
+
 }
