@@ -53,7 +53,7 @@ public class BootstrapData implements CommandLineRunner {
         Customer customerSaved1 = customerRepository.save(customer1);
         Customer customerSaved2 = customerRepository.save(customer2);
 
-        Address address1Saved = addressRepository.save(address2);
+        Address address1Saved = addressRepository.save(address1);
         Address address2Saved = addressRepository.save(address2);
 
 //######################

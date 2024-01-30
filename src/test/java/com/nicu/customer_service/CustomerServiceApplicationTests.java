@@ -1,19 +1,20 @@
 package com.nicu.customer_service;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.nicu.customer_service.domain.Address;
 import com.nicu.customer_service.domain.Customer;
+import com.nicu.customer_service.repositories.AddressRepository;
 import com.nicu.customer_service.repositories.CustomerRepository;
-import jakarta.servlet.ServletContext;
+import jakarta.persistence.EntityManager;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.mock.web.MockHttpServletRequest;
-import org.springframework.test.web.servlet.RequestBuilder;
+import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
-import org.springframework.ui.Model;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -21,14 +22,24 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest
 @AutoConfigureMockMvc
+@Transactional
 class CustomerServiceApplicationTests {
 
     @Autowired
     private CustomerRepository customerRepository;
 
+    @Autowired
+    private AddressRepository addressRepository;
+
 
     @Autowired
     private MockMvc mvc;
+
+    @Autowired
+    private ObjectMapper objectMapper; // ObjectMapper to convert objects to JSON
+
+    @Autowired
+    private EntityManager entityManager;
 
 
     @Test
@@ -63,5 +74,39 @@ class CustomerServiceApplicationTests {
                 .andExpect(MockMvcResultMatchers.jsonPath("$.id").value("1"))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.email").value("asd@asd.com"));
     }
+
+    //@Test
+    void testCreateCustomer() throws Exception {
+        Address address = new Address();
+        address.setCity("Montreal");
+        address.setCountry("Canada");
+        address.setPostalCode("123456");
+        address.setId(Long.parseLong("10"));
+        address.setStreet("Street 14");
+
+        address = entityManager.merge(address);
+
+        Customer customer = new Customer();
+        customer.setFirstName("Michel");
+        customer.setLastName("Lala");
+        customer.setAge(Long.parseLong("33"));
+        customer.setEmail("XXX@canada.com");
+        customer.setAddress(address);
+
+        // Perform a POST request with the customer object as content
+        mvc.perform(MockMvcRequestBuilders.post("/createCustomer")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(customer)))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.message").value("Customer Me successfully created !"));
+
+        // Verify that the customer is added to the repository
+        List<Customer> customerList = (List<Customer>) customerRepository.findAll();
+        assertEquals(1, customerList.size());
+        Customer savedCustomer = customerList.get(0);
+        assertEquals("Michel", savedCustomer.getFirstName());
+        assertEquals("Lala", savedCustomer.getLastName());
+    }
+
 
 }
