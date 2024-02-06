@@ -1,7 +1,7 @@
 package com.nicu.customer_service.services;
 
 
-import com.nicu.customer_service.domain.Customer;
+import com.nicu.customer_service.model.Customer;
 
 import java.util.List;
 
@@ -12,7 +12,7 @@ public interface CustomerService {
 
     Customer findCustomer(Long id);
 
-    Customer findCustomerByFirstNameOrLastName(String firstName, String lastName);
+    List<Customer> findCustomersByFirstNameOrLastName(String firstName, String lastName);
 
     String createCustomer(Customer customer);
 

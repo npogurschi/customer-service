@@ -1,8 +1,8 @@
 package com.nicu.customer_service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.nicu.customer_service.domain.Address;
-import com.nicu.customer_service.domain.Customer;
+import com.nicu.customer_service.model.Address;
+import com.nicu.customer_service.model.Customer;
 import com.nicu.customer_service.repositories.AddressRepository;
 import com.nicu.customer_service.repositories.CustomerRepository;
 import jakarta.persistence.EntityManager;
@@ -55,18 +55,18 @@ class CustomerServiceApplicationTests {
 
     @Test
     void testGetCustomerByFirstName() throws Exception {
-        mvc.perform(MockMvcRequestBuilders.get("/getCustomerByName")
+        mvc.perform(MockMvcRequestBuilders.get("/api/customer")
                         .param("lastName", "Evans"))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.content().contentType("application/json"))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.age").value("19"))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.id").value("1"))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.email").value("asd@asd.com"));
+                .andExpect(MockMvcResultMatchers.jsonPath("$[0].age").value("19"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[0].id").value("1"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[0].email").value("asd@asd.com"));
     }
 
     @Test
     void testGetCustomerById() throws Exception {
-        mvc.perform(MockMvcRequestBuilders.get("/getCustomerById/1")
+        mvc.perform(MockMvcRequestBuilders.get("/api/customer/1")
                         .param("id", "1"))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.content().contentType("application/json"))
@@ -94,7 +94,7 @@ class CustomerServiceApplicationTests {
         customer.setAddress(address);
 
         // Perform a POST request with the customer object as content
-        mvc.perform(MockMvcRequestBuilders.post("/createCustomer")
+        mvc.perform(MockMvcRequestBuilders.post("/api/createCustomer")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(customer)))
                 .andExpect(MockMvcResultMatchers.status().isOk())

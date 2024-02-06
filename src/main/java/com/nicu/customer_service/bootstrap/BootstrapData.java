@@ -1,7 +1,7 @@
 package com.nicu.customer_service.bootstrap;
 
-import com.nicu.customer_service.domain.Address;
-import com.nicu.customer_service.domain.Customer;
+import com.nicu.customer_service.model.Address;
+import com.nicu.customer_service.model.Customer;
 import com.nicu.customer_service.repositories.AddressRepository;
 import com.nicu.customer_service.repositories.CustomerRepository;
 import org.springframework.boot.CommandLineRunner;

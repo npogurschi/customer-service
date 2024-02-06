@@ -1,14 +1,13 @@
 package com.nicu.customer_service.services;
 
-import com.nicu.customer_service.domain.Address;
-import com.nicu.customer_service.domain.Customer;
+import com.nicu.customer_service.model.Address;
+import com.nicu.customer_service.model.Customer;
 import com.nicu.customer_service.repositories.AddressRepository;
 import com.nicu.customer_service.repositories.CustomerRepository;
 import org.springframework.stereotype.Service;
-import org.thymeleaf.util.StringUtils;
+import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class CustomerServiceImpl implements CustomerService {
@@ -22,11 +21,13 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
+    @Transactional
     public List<Customer> findAll() {
         return (List<Customer>) customerRepository.findAll();
     }
 
     @Override
+    @Transactional
     public Customer findCustomer(Long id) {
         Optional<Customer> customer = customerRepository.findById(id);
         if (customer.isEmpty()) {
@@ -43,17 +44,15 @@ public class CustomerServiceImpl implements CustomerService {
 
 
     @Override
-    public Customer findCustomerByFirstNameOrLastName(String firstName, String lastName) {
-        if ((firstName != null && !StringUtils.isEmpty(firstName) )||
-                (lastName != null && !StringUtils.isEmpty(lastName))) {
-            return customerRepository.findCustomerByFirstNameOrLastName(firstName, lastName);
+    @Transactional
+    public List<Customer> findCustomersByFirstNameOrLastName(String firstName, String lastName) {
+        return customerRepository.findByFirstNameOrLastName(firstName, lastName);
 
-        }
-        return new Customer();
     }
 
     //age >= 18 AND  email or address must be completed
     @Override
+    @Transactional
     public String createCustomer(Customer customer) {
         Address address = customer.getAddress();
         if (customer.getAge() < 18) {
@@ -71,6 +70,8 @@ public class CustomerServiceImpl implements CustomerService {
         return "Customer " + customer.getLastName() + " successfully created !";
     }
 
+    @Override
+    @Transactional
     public String updateCustomer(Customer customer) {
         Long customerId = customer.getId();
         Optional<Customer> existingCustomer = customerRepository.findById(customerId);
