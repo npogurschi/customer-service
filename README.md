@@ -15,18 +15,29 @@ http://localhost:8080/customersTemplate
 The customers can also be viewed directly in the browser with the url via a template
 
 
-http://localhost:8080/customers
-DESCRIPTION: The service will return all the customers when calling the API
-
 ########################
-http://localhost:8080/getCustomerById/1
+GET
+http://localhost:8080/customer/1
 DESCRIPTION: the service will find the customer by id when calling the API with a GET request that contains 
 the id of the customer
 
 #######################
-http://localhost:8080/getCustomerByName?lastName=Evans
+GET
+http://localhost:8080/customer?lastName=Evans
 OR
-http://localhost:8080/getCustomerByName?firstName=Eric
+http://localhost:8080/customer?firstName=Eric
 DESCRIPTION: The service will find the customer by lastName or by firstName of the customer
+
+#######################
+POST
+http://localhost:8080/customer
+DESCRIPTION: The service will create new customer
+example body: {"id":3,"firstName":"Vila","lastName":"Me","age":19,"email":"fdfs@asd.com","address":{"id":3,"city":"Nowhere","street":"Street x","postalCode":"232322", "country" : "XXxx"}}
+
+########################
+PUT
+http://localhost:8080/customer
+DESCRIPTION: The service will update an existing customer
+example body: {"id":3,"firstName":"Vila","lastName":"Me","age":19,"email":"fdfs@asd.com","address":{"id":3,"city":"Nowhere","street":"Street x","postalCode":"232322", "country" : "XXxxYYY"}}
 
 
