@@ -1,7 +1,5 @@
-# Use an official OpenJDK runtime as a parent image
 FROM amazoncorretto:17
 
-# Set the working directory in the container
 WORKDIR /app
 
 # Copy the application JAR file into the container at /app
