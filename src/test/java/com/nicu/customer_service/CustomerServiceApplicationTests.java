@@ -82,7 +82,8 @@ class CustomerServiceApplicationTests {
         address.setCountry("Canada");
         address.setPostalCode("123456");
         address.setId(Long.parseLong("10"));
-        address.setStreet("Street 14");
+        address.setStreetName("Street Gama");
+        address.setStreetNo("Beta");
 
         address = entityManager.merge(address);
 

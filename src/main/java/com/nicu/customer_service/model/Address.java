@@ -13,26 +13,21 @@ public class Address {
 
     private String city;
 
-    private String street;
+    private String streetName;
+
+    private String streetNo;
 
     private String postalCode;
 
     private String country;
 
-    @Override
-    public String toString() {
-        return "Address{" +
-                "id=" + id +
-                ", city='" + city + '\'' +
-                ", street='" + street + '\'' +
-                ", postalCode='" + postalCode + '\'' +
-                ", country='" + country + '\'' +
-                '}';
-    }
 
-    //if all the fields are completed
+    //check if all fields of the address are completed (mandatory requirement)
     public boolean hasAllFieldsCompleted() {
-        if (getCity() == null && getStreet() == null && getPostalCode() == null || getCountry() == null) {
+        if (getCity() == null && getStreetName() == null
+                && getStreetNo() == null
+                && getPostalCode() == null
+                && getCountry() == null) {
             return false;
         }
         return true;
@@ -55,14 +50,6 @@ public class Address {
         this.city = city;
     }
 
-    public String getStreet() {
-        return street;
-    }
-
-    public void setStreet(String street) {
-        this.street = street;
-    }
-
     public String getPostalCode() {
         return postalCode;
     }
@@ -79,16 +66,44 @@ public class Address {
         this.country = country;
     }
 
+    public String getStreetName() {
+        return streetName;
+    }
+
+    public void setStreetName(String streetName) {
+        this.streetName = streetName;
+    }
+
+    public String getStreetNo() {
+        return streetNo;
+    }
+
+    public void setStreetNo(String streetNo) {
+        this.streetNo = streetNo;
+    }
+
+    @Override
+    public String toString() {
+        return "Address{" +
+                "id=" + id +
+                ", city='" + city + '\'' +
+                ", streetName='" + streetName + '\'' +
+                ", streetNo='" + streetNo + '\'' +
+                ", postalCode='" + postalCode + '\'' +
+                ", country='" + country + '\'' +
+                '}';
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Address address)) return false;
-        return Objects.equals(getId(), address.getId()) && Objects.equals(getCity(), address.getCity()) && Objects.equals(getStreet(), address.getStreet()) && Objects.equals(getPostalCode(), address.getPostalCode()) && Objects.equals(getCountry(), address.getCountry());
+        return Objects.equals(getId(), address.getId()) && Objects.equals(getCity(), address.getCity()) && Objects.equals(getStreetName(), address.getStreetName()) && Objects.equals(getStreetNo(), address.getStreetNo()) && Objects.equals(getPostalCode(), address.getPostalCode()) && Objects.equals(getCountry(), address.getCountry());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getCity(), getStreet(), getPostalCode(), getCountry());
+        return Objects.hash(getId(), getCity(), getStreetName(), getStreetNo(), getPostalCode(), getCountry());
     }
 }
 

@@ -1,5 +1,5 @@
+com/nicu/customer_service/dummy/data/DummyData.class
 com/nicu/customer_service/repositories/AddressRepository.class
-com/nicu/customer_service/bootstrap/BootstrapData.class
 com/nicu/customer_service/services/CustomerServiceImpl.class
 com/nicu/customer_service/model/Address.class
 com/nicu/customer_service/repositories/CustomerRepository.class
