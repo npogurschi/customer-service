@@ -32,10 +32,13 @@ DESCRIPTION: The service will find the customer by lastName or by firstName of t
 POST
 http://localhost:8080/customer
 DESCRIPTION: The service will create new customer
+
 example body: {"id":3,"firstName":"Vila","lastName":"Me","age":19,"email":"fdfs@asd.com","address":{"id":3,"city":"Nowhere","streetName":"Street x","streetNo":"111" ,"postalCode":"232322", "country" : "XXxx"}}
+
 ########################
 PUT
 http://localhost:8080/customer
 DESCRIPTION: The service will update an existing customer
+
 example body: {"id":3,"firstName":"Vila","lastName":"Me","age":19,"email":"fdfs@asd.com","address":{"id":3,"city":"Nowhere","streetName":"Street x","streetNo":"222" ,"postalCode":"232322", "country" : "XXxxYYYYY"}}
 
