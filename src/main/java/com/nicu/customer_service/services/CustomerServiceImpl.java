@@ -1,6 +1,7 @@
 package com.nicu.customer_service.services;
 
 import com.nicu.customer_service.dto.CustomerDTO;
+import com.nicu.customer_service.exception.CustomerNotFound;
 import com.nicu.customer_service.model.Address;
 import com.nicu.customer_service.model.Customer;
 import com.nicu.customer_service.repositories.AddressRepository;
@@ -38,7 +39,7 @@ public class CustomerServiceImpl implements CustomerService {
         Optional<Customer> customer = customerRepository.findById(id);
 
         if (customer.isEmpty()) {
-            throw new RuntimeException("Customer not found !");
+            throw new CustomerNotFound(id);
         }
 
         return mapToDTO(customer.get());

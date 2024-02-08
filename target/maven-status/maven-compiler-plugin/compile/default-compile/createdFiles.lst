@@ -2,7 +2,9 @@ com/nicu/customer_service/dummy/data/DummyData.class
 com/nicu/customer_service/controllers/CustomerTemplateController.class
 com/nicu/customer_service/services/CustomerService.class
 com/nicu/customer_service/repositories/AddressRepository.class
+com/nicu/customer_service/exception/advice/GlobalExceptionHandler.class
 com/nicu/customer_service/dto/CustomerDTO.class
+com/nicu/customer_service/exception/CustomerNotFound.class
 com/nicu/customer_service/services/CustomerServiceImpl.class
 com/nicu/customer_service/model/Address.class
 com/nicu/customer_service/repositories/CustomerRepository.class
