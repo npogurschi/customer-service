@@ -1,6 +1,7 @@
 package com.nicu.customer_service.services;
 
 
+import com.nicu.customer_service.dto.CustomerDTO;
 import com.nicu.customer_service.model.Customer;
 
 import java.util.List;
@@ -8,13 +9,13 @@ import java.util.List;
 
 public interface CustomerService {
 
-    List<Customer> findAll();
+    List<CustomerDTO> findAll();
 
-    Customer findCustomer(Long id);
+    CustomerDTO findCustomer(Long id);
 
-    List<Customer> findCustomersByFirstNameOrLastName(String firstName, String lastName);
+    List<CustomerDTO> findCustomersByFirstNameOrLastName(String firstName, String lastName);
 
-    String createCustomer(Customer customer);
+    String createCustomer(CustomerDTO customer);
 
     String updateCustomer(Customer customer);
 

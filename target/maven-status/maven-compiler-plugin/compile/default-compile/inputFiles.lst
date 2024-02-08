@@ -1,4 +1,5 @@
 /Users/2315346/Documents/Projects/customer-service/src/main/java/com/nicu/customer_service/controllers/CustomerController.java
+/Users/2315346/Documents/Projects/customer-service/src/main/java/com/nicu/customer_service/dto/CustomerDTO.java
 /Users/2315346/Documents/Projects/customer-service/src/main/java/com/nicu/customer_service/model/Customer.java
 /Users/2315346/Documents/Projects/customer-service/src/main/java/com/nicu/customer_service/services/CustomerService.java
 /Users/2315346/Documents/Projects/customer-service/src/main/java/com/nicu/customer_service/model/Address.java

@@ -1,5 +1,6 @@
 package com.nicu.customer_service.controllers;
 
+import com.nicu.customer_service.dto.CustomerDTO;
 import com.nicu.customer_service.model.Customer;
 import com.nicu.customer_service.services.CustomerService;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,13 +21,13 @@ public class CustomerController {
     }
 
     @GetMapping("/customers")
-    public List<Customer> getCustomers() {
+    public List<CustomerDTO> getCustomers() {
 
         return customerService.findAll();
     }
 
     @GetMapping("/customer/{id}")
-    public Customer getCustomer(@PathVariable("id") Long id) {
+    public CustomerDTO getCustomer(@PathVariable("id") Long id) {
 
         return customerService.findCustomer(id);
     }
@@ -38,13 +39,13 @@ public class CustomerController {
      * @return
      */
     @GetMapping("/customer")
-    public List<Customer> getCustomerByName(@RequestParam(value = "firstName", required = false) String firstName,
+    public List<CustomerDTO> getCustomerByName(@RequestParam(value = "firstName", required = false) String firstName,
                                       @RequestParam(value = "lastName", required = false) String lastName) {
         return customerService.findCustomersByFirstNameOrLastName(firstName, lastName);
     }
 
     @PostMapping("/customer")
-    public String createCustomer(@RequestBody Customer customer) {
+    public String createCustomer(@RequestBody CustomerDTO customer) {
         return customerService.createCustomer(customer);
     }
 
@@ -52,5 +53,7 @@ public class CustomerController {
     public String updateCustomer(@RequestBody Customer customer) {
         return customerService.updateCustomer(customer);
     }
+
+
 
 }

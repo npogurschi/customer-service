@@ -1,5 +1,6 @@
 package com.nicu.customer_service.services;
 
+import com.nicu.customer_service.dto.CustomerDTO;
 import com.nicu.customer_service.model.Address;
 import com.nicu.customer_service.model.Customer;
 import com.nicu.customer_service.repositories.AddressRepository;
@@ -8,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class CustomerServiceImpl implements CustomerService {
@@ -22,19 +24,24 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     @Transactional
-    public List<Customer> findAll() {
-        return (List<Customer>) customerRepository.findAll();
+    public List<CustomerDTO> findAll() {
+        List<Customer> customers = customerRepository.findAll();
+
+        return customers.stream()
+                .map(this::mapToDTO)
+                .collect(Collectors.toList());
     }
 
     @Override
     @Transactional
-    public Customer findCustomer(Long id) {
+    public CustomerDTO findCustomer(Long id) {
         Optional<Customer> customer = customerRepository.findById(id);
+
         if (customer.isEmpty()) {
             throw new RuntimeException("Customer not found !");
         }
 
-        return customer.get();
+        return mapToDTO(customer.get());
     }
 
     @Override
@@ -45,29 +52,33 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     @Transactional
-    public List<Customer> findCustomersByFirstNameOrLastName(String firstName, String lastName) {
-        return customerRepository.findByFirstNameOrLastName(firstName, lastName);
+    public List<CustomerDTO> findCustomersByFirstNameOrLastName(String firstName, String lastName) {
 
+        List<Customer> customers = customerRepository.findByFirstNameOrLastName(firstName, lastName);
+
+        return customers.stream()
+                .map(this::mapToDTO)
+                .collect(Collectors.toList());
     }
 
     //age >= 18 AND  email or address must be completed
     @Override
     @Transactional
-    public String createCustomer(Customer customer) {
-        Address address = customer.getAddress();
-        if (customer.getAge() < 18) {
+    public String createCustomer(CustomerDTO customerDTO) {
+        Address address = customerDTO.getAddress();
+        if (customerDTO.getAge() < 18) {
             return "The customer's age < 18 !";
         }
 
         if (address != null &&
-                (customer.getEmail() != null || address.hasAllFieldsCompleted())) {
+                (customerDTO.getEmail() != null || address.hasAllFieldsCompleted())) {
             addressRepository.save(address);
-            customerRepository.save(customer);
+            customerRepository.save(mapToCustomerEntity(customerDTO));
         } else {
             return "Email or address are required !";
         }
-        
-        return "Customer " + customer.getLastName() + " successfully created !";
+
+        return "Customer " + customerDTO.getLastName() + " successfully created !";
     }
 
     @Override
@@ -82,6 +93,32 @@ public class CustomerServiceImpl implements CustomerService {
         addressRepository.save(customer.getAddress());
 
         return "Customer " + existingCustomer.get().getLastName() + " updated";
+    }
+
+    private CustomerDTO mapToDTO(Customer customer) {
+        CustomerDTO customerDTO = new CustomerDTO();
+
+        customerDTO.setId(customer.getId());
+        customerDTO.setFirstName(customer.getFirstName());
+        customerDTO.setLastName(customer.getLastName());
+        customerDTO.setAge(customer.getAge());
+        customerDTO.setEmail(customer.getEmail());
+        customerDTO.setAddress(customer.getAddress());
+
+        return customerDTO;
+    }
+
+    private Customer mapToCustomerEntity(CustomerDTO customerDTO) {
+        Customer customer = new Customer();
+
+        customer.setId(customerDTO.getId());
+        customer.setFirstName(customerDTO.getFirstName());
+        customer.setLastName(customerDTO.getLastName());
+        customer.setAge(customerDTO.getAge());
+        customer.setEmail(customerDTO.getEmail());
+        customer.setAddress(customerDTO.getAddress());
+
+        return customer;
     }
 }
 
